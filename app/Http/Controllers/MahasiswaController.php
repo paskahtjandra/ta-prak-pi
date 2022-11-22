@@ -39,8 +39,17 @@ class MahasiswaController extends Controller
 
     public function getMahasiswaById($nim)
     {
+        $mahasiswa = Mahasiswa::with('matakuliah', 'prodi')->find($nim);
+        return response()->json([
+            'success' => true,
+            'message' => 'Mahasiswa grabbed',
+            'mahasiswa' => $mahasiswa
+        ]);
+    }
 
-        $mahasiswa = Mahasiswa::with('matakuliahs', 'prodi')->find($nim);
+    public function getMahasiswaByToken(Request $request)
+    {
+        $mahasiswa = $request->mahasiswa;
         return response()->json([
             'success' => true,
             'message' => 'Mahasiswa grabbed',
@@ -54,16 +63,15 @@ class MahasiswaController extends Controller
         return response()->json([
             'status' => 'Success',
             'message' => 'all mahasiswas grabbed',
-            'mahasiswas' => $mahasiswas,
+            'mahasiswa' => $mahasiswas,
 
         ], 200);
     }
 
-    public function addMatakuliah($nim, $mkId)
+    public function addMatakuliah(Request $request, $mkId)
     {
-
-        $mahasiswa = Mahasiswa::find($nim);
-        $mahasiswa->matakuliahs()->attach([$mkId]);
+        $mahasiswa = $request->mahasiswa;
+        $mahasiswa->matakuliah()->attach([$mkId]);
 
         return response()->json([
             'success' => true,
@@ -71,10 +79,10 @@ class MahasiswaController extends Controller
         ]);
     }
 
-    public function deleteMatakuliah($nim, $mkId)
+    public function deleteMatakuliah(Request $request, $mkId)
     {
-        $mahasiswa = Mahasiswa::find($nim);
-        $mahasiswa->matakuliahs()->detach([$mkId]);
+        $mahasiswa = $request->mahasiswa;
+        $mahasiswa->matakuliah()->detach([$mkId]);
         return response()->json([
             'success' => true,
             'message' => 'matakuliah deleted from profile',

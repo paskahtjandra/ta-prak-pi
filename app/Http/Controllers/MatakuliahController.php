@@ -28,7 +28,7 @@ class MatakuliahController extends Controller
             'success' => true,
             'message' => 'New matakuliah created',
             'data' => [
-                'tag' => $matakuliah
+                'matakuliah' => $matakuliah
             ]
         ]);
     }
@@ -40,7 +40,7 @@ class MatakuliahController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'All Matakuliah Grabbed',
-            'prodi' => $matakuliah
+            'matakuliah' => $matakuliah
         ]);
     }
 }

@@ -17,12 +17,17 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->group(['prefix' => 'auth'], function () use ($router) {
+    $router->post('/register', ['uses' => 'AuthController@register']);
+    $router->post('/login', ['uses' => 'AuthController@login']);
+});
+
 $router->group(['prefix' => 'mahasiswa'], function () use ($router) {
-    $router->post('/', ['uses' => 'MahasiswaController@createMahasiswa']);
     $router->get('/', ['uses' => 'MahasiswaController@getMahasiswas']);
+    $router->get('/profile', ['middleware' => 'jwt.auth', 'uses' => 'MahasiswaController@getMahasiswaByToken']);
     $router->get('/{nim}', ['uses' => 'MahasiswaController@getMahasiswaById']);
-    $router->post('/{nim}/matakuliah/{mkId}', ['uses' => 'MahasiswaController@addMatakuliah']);
-    $router->put('/{nim}/matakuliah/{mkId}', ['uses' => 'MahasiswaController@deleteMatakuliah']);
+    $router->post('/{nim}/matakuliah/{mkId}', ['middleware' => 'jwt.auth', 'uses' => 'MahasiswaController@addMatakuliah']);
+    $router->put('/{nim}/matakuliah/{mkId}', ['middleware' => 'jwt.auth', 'uses' => 'MahasiswaController@deleteMatakuliah']);
 });
 
 $router->group(['prefix' => 'prodi'], function () use ($router) {

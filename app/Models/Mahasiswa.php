@@ -22,6 +22,7 @@ class Mahasiswa extends Model
         'angkatan',
         'password',
         'prodiId',
+        'token'
     ];
 
     /**
@@ -37,7 +38,7 @@ class Mahasiswa extends Model
     }
 
 
-    public function matakuliahs()
+    public function matakuliah()
     {
         return $this->belongsToMany(Matakuliah::class, 'mahasiswa_matakuliah', 'mhsNim', 'mkId');
     }
