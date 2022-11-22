@@ -40,25 +40,22 @@ class MahasiswaController extends Controller
     public function getMahasiswaById($nim)
     {
 
-        $mahasiswa = Mahasiswa::with('matakuliahs')->find($nim);
+        $mahasiswa = Mahasiswa::with('matakuliahs', 'prodi')->find($nim);
         return response()->json([
             'success' => true,
             'message' => 'Mahasiswa grabbed',
-            'data' => [
-                'mahasiswa' => $mahasiswa
-            ]
+            'mahasiswa' => $mahasiswa
         ]);
     }
     public function getMahasiswas()
     {
-        $mahasiswas = Mahasiswa::all();
+        $mahasiswas = Mahasiswa::with('prodi')->get();
 
         return response()->json([
             'status' => 'Success',
             'message' => 'all mahasiswas grabbed',
-            'data' => [
-                'mahasiswas' => $mahasiswas,
-            ]
+            'mahasiswas' => $mahasiswas,
+
         ], 200);
     }
 
@@ -67,15 +64,20 @@ class MahasiswaController extends Controller
 
         $mahasiswa = Mahasiswa::find($nim);
         $mahasiswa->matakuliahs()->attach([$mkId]);
-        return $mahasiswa;
-
-        // $mahasiswa = Mahasiswa::find($request->nim);
-
-        // $mahasiswa->matakuliahs()->attach($request->matakuliahId);
 
         return response()->json([
             'success' => true,
             'message' => 'matakuliah added to ur profile',
+        ]);
+    }
+
+    public function deleteMatakuliah($nim, $mkId)
+    {
+        $mahasiswa = Mahasiswa::find($nim);
+        $mahasiswa->matakuliahs()->detach([$mkId]);
+        return response()->json([
+            'success' => true,
+            'message' => 'matakuliah deleted from profile',
         ]);
     }
 }

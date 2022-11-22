@@ -32,4 +32,15 @@ class MatakuliahController extends Controller
             ]
         ]);
     }
+
+    public function getMatakuliah()
+    {
+        $matakuliah = Matakuliah::All();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'All Matakuliah Grabbed',
+            'prodi' => $matakuliah
+        ]);
+    }
 }

@@ -17,17 +17,20 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'mahasiswas'], function () use ($router) {
+$router->group(['prefix' => 'mahasiswa'], function () use ($router) {
     $router->post('/', ['uses' => 'MahasiswaController@createMahasiswa']);
     $router->get('/', ['uses' => 'MahasiswaController@getMahasiswas']);
     $router->get('/{nim}', ['uses' => 'MahasiswaController@getMahasiswaById']);
-    $router->get('/{nim}/matakuliah/{mkId}', ['uses' => 'MahasiswaController@addMatakuliah']); //
+    $router->post('/{nim}/matakuliah/{mkId}', ['uses' => 'MahasiswaController@addMatakuliah']);
+    $router->put('/{nim}/matakuliah/{mkId}', ['uses' => 'MahasiswaController@deleteMatakuliah']);
 });
 
 $router->group(['prefix' => 'prodi'], function () use ($router) {
     $router->post('/', ['uses' => 'ProdiController@createProdi']);
+    $router->get('/', ['uses' => 'ProdiController@getProdi']);
 });
 
 $router->group(['prefix' => 'matakuliah'], function () use ($router) {
     $router->post('/', ['uses' => 'MatakuliahController@createMatakuliah']);
+    $router->get('/', ['uses' => 'MatakuliahController@getMatakuliah']);
 });

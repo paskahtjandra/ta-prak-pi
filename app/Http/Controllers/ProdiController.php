@@ -32,4 +32,14 @@ class ProdiController extends Controller
             ]
         ]);
     }
+    public function getProdi()
+    {
+        $prodis = Prodi::All();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'All Prodi Grabbed',
+            'prodi' => $prodis
+        ]);
+    }
 }
