@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mahasiswa extends Model
 {
+
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
+    protected $primaryKey = "nim";
+    public $incrementing = false;
+    public $keyType = 'string';
+
     protected $fillable = [
         'nim',
         'nama',
@@ -34,6 +39,6 @@ class Mahasiswa extends Model
 
     public function matakuliahs()
     {
-        return $this->belongsToMany(Matakuliah::class, 'mahasiswa_matakuliah', 'matakuliahId', 'mhsNim');
+        return $this->belongsToMany(Matakuliah::class, 'mahasiswa_matakuliah', 'mhsNim', 'mkId');
     }
 }

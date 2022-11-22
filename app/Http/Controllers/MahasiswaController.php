@@ -39,10 +39,8 @@ class MahasiswaController extends Controller
 
     public function getMahasiswaById($nim)
     {
-        $mahasiswa = Mahasiswa::where('nim', '=', $nim)->firstorFail();
-        if (is_null($mahasiswa)) {
-            return response()->json('Data not found', 404);
-        }
+
+        $mahasiswa = Mahasiswa::with('matakuliahs')->find($nim);
         return response()->json([
             'success' => true,
             'message' => 'Mahasiswa grabbed',
@@ -64,11 +62,16 @@ class MahasiswaController extends Controller
         ], 200);
     }
 
-    public function addMatakuliah($nim, $matakuliahId)
+    public function addMatakuliah($nim, $mkId)
     {
-        $mahasiswa = Mahasiswa::where('nim', '=', $nim)->firstorFail();
 
-        $mahasiswa->matakuliahs()->attach($matakuliahId);
+        $mahasiswa = Mahasiswa::find($nim);
+        $mahasiswa->matakuliahs()->attach([$mkId]);
+        return $mahasiswa;
+
+        // $mahasiswa = Mahasiswa::find($request->nim);
+
+        // $mahasiswa->matakuliahs()->attach($request->matakuliahId);
 
         return response()->json([
             'success' => true,

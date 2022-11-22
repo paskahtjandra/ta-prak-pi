@@ -21,7 +21,7 @@ $router->group(['prefix' => 'mahasiswas'], function () use ($router) {
     $router->post('/', ['uses' => 'MahasiswaController@createMahasiswa']);
     $router->get('/', ['uses' => 'MahasiswaController@getMahasiswas']);
     $router->get('/{nim}', ['uses' => 'MahasiswaController@getMahasiswaById']);
-    $router->put('/{nim}/matakuliah/{matakuliahId}', ['uses' => 'MahasiswaController@addMatakuliah']); //
+    $router->get('/{nim}/matakuliah/{mkId}', ['uses' => 'MahasiswaController@addMatakuliah']); //
 });
 
 $router->group(['prefix' => 'prodi'], function () use ($router) {
