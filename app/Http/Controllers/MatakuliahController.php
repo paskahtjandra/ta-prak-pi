@@ -17,22 +17,6 @@ class MatakuliahController extends Controller
         //
     }
 
-    //
-    public function createMatakuliah(Request $request)
-    {
-        $matakuliah = Matakuliah::create([
-            'nama' => $request->nama
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'New matakuliah created',
-            'data' => [
-                'matakuliah' => $matakuliah
-            ]
-        ]);
-    }
-
     public function getMatakuliah()
     {
         $matakuliah = Matakuliah::All();

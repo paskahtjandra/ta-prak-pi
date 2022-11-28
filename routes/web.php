@@ -31,11 +31,9 @@ $router->group(['prefix' => 'mahasiswa'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'prodi'], function () use ($router) {
-    $router->post('/', ['uses' => 'ProdiController@createProdi']);
     $router->get('/', ['uses' => 'ProdiController@getProdi']);
 });
 
 $router->group(['prefix' => 'matakuliah'], function () use ($router) {
-    $router->post('/', ['uses' => 'MatakuliahController@createMatakuliah']);
     $router->get('/', ['uses' => 'MatakuliahController@getMatakuliah']);
 });
