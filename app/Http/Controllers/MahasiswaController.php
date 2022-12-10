@@ -18,24 +18,6 @@ class MahasiswaController extends Controller
     }
 
     //
-    public function createMahasiswa(Request $request)
-    {
-        $mahasiswa = Mahasiswa::create([
-            'nim' => $request->nim,
-            'nama' => $request->nama,
-            'angkatan' => $request->angkatan,
-            'password' => $request->password,
-            'prodiId' => $request->prodiId,
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'New Mahasiswa created',
-            'data' => [
-                'mahasiswa' => $mahasiswa
-            ]
-        ]);
-    }
 
     public function getMahasiswaById($nim)
     {
